@@ -67,11 +67,14 @@ namespace Sitecore.Support.Web.WebUtil
                     }
                 }
             }
+            HtmlTextNode DocumentNode = htmlDocument.CreateTextNode(content);
             using (System.IO.StringWriter stringWriter = new System.IO.StringWriter())
             {
-                htmlDocument.Save(stringWriter);
+                string text2 = DocumentNode.Text;
+                stringWriter.Write(DocumentNode.OwnerDocument.OptionOutputAsXml ? HtmlAgilityPack.HtmlDocument.HtmlEncode(text2) : text2);
                 text = stringWriter.ToString();
             }
+
             for (int k = 0; k < cdatas.Count; k++)
             {
                 int i1 = k;
